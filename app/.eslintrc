@@ -16,9 +16,10 @@
     "react/jsx-no-bind": 0,
     "global-require": 0,
     "max-len": 2,
-    "import/no-unresolved": 0
+    "import/no-unresolved": 0,
+    "no-console": 0
   },
   "globals": {
-    "expect": true ,
+    "expect": true
   }
 }

@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const start = {
-  devtool: 'eval',
+  devtool: 'source-map',
   devServer: {
     // contentBase -- It works without a content base config option so I think the default value is
     // the build directory.  I'm setting it here just in case future versions change the default.

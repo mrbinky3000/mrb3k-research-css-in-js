@@ -20,6 +20,10 @@ module.exports = function jsxLoader(path, excludePath) {
             cacheDirectory: './.babel-cache',
           },
         },
+        {
+          test: /\.jsx?/,
+          loader: "source-map-loader"
+        }
       ],
     },
   });
