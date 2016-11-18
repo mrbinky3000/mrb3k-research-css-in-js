@@ -3,6 +3,7 @@ const PATHS = require('../lib/paths');
 const merge = require('webpack-merge');
 const resolve = require('../lib/resolve');
 const jsxLoader = require('../lib/loader-jsx');
+const cssLoader = require('../lib/loader-css');
 const scssLoader = require('../lib/loader-scss');
 const jsonLoader = require('../lib/loader-json');
 const svgLoader = require('../lib/loader-svg');
@@ -54,6 +55,7 @@ module.exports = merge(
   common,
   resolve(),
   jsxLoader([PATHS.app, PATHS.tests], `${process.cwd()}/node_modules`),
+  cssLoader([PATHS.app, `${process.cwd()}/node_modules`]),
   scssLoader(PATHS.app),
   jsonLoader([PATHS.app, PATHS.tests]),
   svgLoader(PATHS.app),
