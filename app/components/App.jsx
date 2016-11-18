@@ -157,7 +157,7 @@ class App extends React.Component {
     }
 
     return (
-      <div>
+      <div className="todoapp">
         <header className="header">
           <h1>todos</h1>
           <input
