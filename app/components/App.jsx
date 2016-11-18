@@ -6,8 +6,6 @@ import TodoStore from '../stores/todoStore';
 import TodoActions from '../actions/todoActions';
 import constants from '../common_assets/constants';
 
-import '../main.scss';
-
 const ENTER_KEY = 13;
 
 class App extends React.Component {
