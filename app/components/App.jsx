@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router } from 'director';
+import { Router } from 'director/build/director';
 import TodoFooter from './Footer';
 import TodoItem from './TodoItem';
 import TodoStore from '../stores/todoStore';
@@ -46,7 +46,6 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = TodoStore.getState();
-    console.log('this.state constructor', this.state);
   }
 
   componentDidMount() {
@@ -54,17 +53,20 @@ class App extends React.Component {
 
     const router = new Router({
       '/': () => {
+        console.log('all todos');
         TodoActions.show(constants.ALL_TODOS);
       },
       '/active': () => {
+        console.log('active todos');
         TodoActions.show(constants.ACTIVE_TODOS);
       },
       '/completed': () => {
+        console.log('completed todos');
         TodoActions.show(constants.COMPLETED_TODOS);
       },
     });
 
-    console.log('router', router);
+    router.init();
   }
 
   componentWillUnmount() {
@@ -72,7 +74,6 @@ class App extends React.Component {
   }
 
   onStoreChange(state) {
-    console.log('onStoreChange', state);
     this.setState(state);
   }
 
