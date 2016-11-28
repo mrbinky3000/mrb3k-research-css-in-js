@@ -1,10 +1,12 @@
 import React from 'react';
-import { Router } from 'director/build/director';
-import TodoFooter from './Footer';
-import TodoItem from './TodoItem';
-import TodoStore from '../stores/todoStore';
-import TodoActions from '../actions/todoActions';
-import constants from '../common_assets/constants';
+import Radium, { Style } from 'radium';
+import { Router } from 'director';
+import TodoFooter from '../Footer';
+import TodoItem from '../TodoItem';
+import TodoStore from '../../stores/todoStore';
+import TodoActions from '../../actions/todoActions';
+import constants from '../../common_assets/constants';
+import styles from './AppCss';
 
 const ENTER_KEY = 13;
 
@@ -46,6 +48,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = TodoStore.getState();
+    console.log('this.state constructor', this.state);
   }
 
   componentDidMount() {
@@ -53,20 +56,17 @@ class App extends React.Component {
 
     const router = new Router({
       '/': () => {
-        console.log('all todos');
         TodoActions.show(constants.ALL_TODOS);
       },
       '/active': () => {
-        console.log('active todos');
         TodoActions.show(constants.ACTIVE_TODOS);
       },
       '/completed': () => {
-        console.log('completed todos');
         TodoActions.show(constants.COMPLETED_TODOS);
       },
     });
 
-    router.init();
+    console.log('router', router);
   }
 
   componentWillUnmount() {
@@ -142,14 +142,21 @@ class App extends React.Component {
 
     if (todos.length) {
       main = (
-        <section className="main">
+        <section style={styles.main}>
+          <span
+            style={[
+              styles.toggleAllBefore,
+              this.toggleAllCheckbox && this.toggleAllCheckbox.value === 'on' && styles.toggleAllCheckedBefore,
+            ]}
+          >❯</span>
           <input
-            className="toggle-all"
+            style={styles.toggleAll}
+            ref={(input) => { this.toggleAllCheckbox = input; }}
             type="checkbox"
             onChange={App.toggleAll.bind(this)}
             checked={activeTodoCount === 0}
           />
-          <ul className="todo-list">
+          <ul style={styles.todoList}>
             {todoItems}
           </ul>
         </section>
@@ -157,11 +164,31 @@ class App extends React.Component {
     }
 
     return (
-      <div>
+      <div style={styles.todoapp} className="todoapp">
+        <Style
+          scopeSelector=".todoapp"
+          rules={{
+            '::-webkit-input-placeholder': {
+              fontStyle: 'italic',
+              fontWeight: 300,
+              color: '#e6e6e6',
+            },
+            '::-moz-placeholder': {
+              fontStyle: 'italic',
+              fontWeight: 300,
+              color: '#e6e6e6',
+            },
+            '::input-placeholder': {
+              fontStyle: 'italic',
+              fontWeight: 300,
+              color: '#e6e6e6',
+            },
+          }}
+        />
         <header className="header">
-          <h1>todos</h1>
+          <h1 style={styles.todoappH1}>todos</h1>
           <input
-            className="new-todo"
+            style={styles.newTodo}
             placeholder="What needs to be done?"
             value={this.state.newTodo}
             onKeyDown={this.handleNewTodoKeyDown.bind(this)}
@@ -176,4 +203,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default Radium(App);
