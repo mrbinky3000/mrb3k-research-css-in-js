@@ -1,6 +1,6 @@
 {
   "name": "mrb3k-research-css-in-js",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A starting point for React single page applications",
   "main": "index.js",
   "scripts": {
