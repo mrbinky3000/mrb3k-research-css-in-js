@@ -21,6 +21,7 @@ class TodoItem extends React.Component {
   * and https://facebook.github.io/react/docs/component-specs.html#updating-componentdidupdate
   */
   componentDidUpdate(prevProps) {
+    // all this crap does is just move the cursor to the end of the text input.
     if (!prevProps.editing && this.props.editing) {
       this.node.focus();
       this.node.setSelectionRange(this.node.value.length, this.node.value.length);
@@ -81,14 +82,14 @@ class TodoItem extends React.Component {
             style={[
               styles.todoListLiLabel,
               this.props.todo.completed && styles.todoListLiCompletedLabel,
+              this.props.editing && styles.todoListLiEditingLabel,
             ]}
-            htmlFor={'btnDestroy'}
-            onDoubleClick={this.handleEdit}
+            onDoubleClick={this.handleEdit.bind(this)}
+            htmlFor={this.props.todo.id}
           >
             {this.props.todo.title}
           </label>
           <button
-            id="btnDestroy"
             style={[
               styles.todoListLiDestroy,
               Radium.getState(this.state, this.props.todo.id, ':hover') ?
@@ -97,9 +98,13 @@ class TodoItem extends React.Component {
             onClick={this.props.onDestroy}
           >×</button>
         </div>
-        <input
+        <textarea
+          id={this.props.todo.id}
           ref={(node) => { this.node = node; }}
-          style={styles.todoListLiEdit}
+          style={[
+            styles.todoListLiEdit,
+            this.props.editing && styles.todoListLiEditingEdit,
+          ]}
           value={this.state.editText}
           onBlur={this.handleSubmit.bind(this)}
           onChange={this.handleChange.bind(this)}

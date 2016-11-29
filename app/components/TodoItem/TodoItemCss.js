@@ -80,17 +80,23 @@ const styles = {
     borderBottom: 'none',
     padding: 0,
   },
+  todoListLiEdit: {
+    display: 'none',
+  },
   todoListLiEditingEdit: {
     display: 'block',
     width: 506,
     padding: '12px 16px',
     margin: '0 0 0 43px',
+    boxSizing: 'border-box',
+    lineHeight: '1.2em',
+    fontSize: 24,
+    border: '0 none',
   },
   todoListLiEditingView: {
     display: 'none',
   },
-
-  todoListLiEdit: {
+  todoListLiEditingLabel: {
     display: 'none',
   },
   todoListLiLastChild: {
