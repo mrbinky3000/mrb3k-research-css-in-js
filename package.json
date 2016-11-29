@@ -1,7 +1,7 @@
 {
   "name": "mrb3k-research-css-in-js",
-  "version": "2.0.0",
-  "description": "A starting point for React single page applications",
+  "version": "2.1.0",
+  "description": "Converted TODOMVC to use CSS in JS via Maven just to test out the process.",
   "main": "index.js",
   "scripts": {
     "test": "karma start --single-run --browsers PhantomJS",
