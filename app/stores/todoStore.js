@@ -111,8 +111,4 @@ class TodoStore {
   }
 }
 
-const todoStore = alt.createStore(TodoStore);
-
-console.log('todoStore', todoStore);
-
-export default todoStore;
+export default alt.createStore(TodoStore);

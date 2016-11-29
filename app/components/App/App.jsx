@@ -1,6 +1,6 @@
 import React from 'react';
 import Radium, { Style } from 'radium';
-import { Router } from 'director';
+import { Router } from 'director/build/director';
 import TodoFooter from '../Footer';
 import TodoItem from '../TodoItem';
 import TodoStore from '../../stores/todoStore';
@@ -11,10 +11,6 @@ import styles from './AppCss';
 const ENTER_KEY = 13;
 
 class App extends React.Component {
-  static toggleAll(event) {
-    const checked = event.target.checked;
-    TodoActions.toggleAll(checked);
-  }
 
   static toggle(todoToToggle) {
     TodoActions.toggle(todoToToggle);
@@ -47,14 +43,24 @@ class App extends React.Component {
 
   constructor() {
     super();
-    this.state = TodoStore.getState();
-    console.log('this.state constructor', this.state);
+    this.state = TodoStore.getState(); // no getState!
+    this.state.toggleAllCheckbox = 'off';
+  }
+
+  componentWillMount() {
+    const { activeTodoCount, completedCount } = this.getCounts();
+
+    this.setState({
+      toggleAllCheckbox: activeTodoCount ? 'on' : 'off',
+      activeTodoCount,
+      completedCount,
+    });
   }
 
   componentDidMount() {
     TodoStore.listen(this.onStoreChange.bind(this));
 
-    const router = new Router({
+    const router = Router({
       '/': () => {
         TodoActions.show(constants.ALL_TODOS);
       },
@@ -66,7 +72,7 @@ class App extends React.Component {
       },
     });
 
-    console.log('router', router);
+    router.init('/');
   }
 
   componentWillUnmount() {
@@ -75,6 +81,26 @@ class App extends React.Component {
 
   onStoreChange(state) {
     this.setState(state);
+  }
+
+  getCounts() {
+    const todos = this.state.todos;
+
+    const activeTodoCount = todos.reduce(
+      (accum, todo) => (todo.completed ? accum : accum + 1), 0
+    );
+
+    const completedCount = todos.length - activeTodoCount;
+
+    return { activeTodoCount, completedCount };
+  }
+
+  handleToggleAll() {
+    const checked = this.state.toggleAllCheckbox === 'on';
+    this.setState({
+      toggleAllCheckbox: checked ? 'off' : 'on',
+    });
+    TodoActions.toggleAll(checked);
   }
 
   handleChange(event) {
@@ -97,11 +123,11 @@ class App extends React.Component {
   }
 
   render() {
+    const { activeTodoCount, completedCount } = this.getCounts();
     let footer = null;
     let main = null;
-    const todos = this.state.todos;
 
-    const shownTodos = todos.filter((todo) => {
+    const shownTodos = this.state.todos.filter((todo) => {
       switch (this.state.nowShowing) {
         case constants.ACTIVE_TODOS:
           return !todo.completed;
@@ -125,36 +151,31 @@ class App extends React.Component {
       />, this
     );
 
-    const activeTodoCount = todos.reduce((accum, todo) => (todo.completed ? accum : accum + 1), 0);
-
-    const completedCount = todos.length - activeTodoCount;
-
     if (activeTodoCount || completedCount) {
       footer = (
         <TodoFooter
           count={activeTodoCount}
           completedCount={completedCount}
           nowShowing={this.state.nowShowing}
-          onClearCompleted={this.clearCompleted}
+          onClearCompleted={App.clearCompleted}
         />
       );
     }
 
-    if (todos.length) {
+    if (this.state.todos.length) {
       main = (
         <section style={styles.main}>
           <span
             style={[
               styles.toggleAllBefore,
-              this.toggleAllCheckbox && this.toggleAllCheckbox.value === 'on' && styles.toggleAllCheckedBefore,
+              this.state.toggleAllCheckbox === 'off' && styles.toggleAllCheckedBefore,
             ]}
           >❯</span>
           <input
             style={styles.toggleAll}
-            ref={(input) => { this.toggleAllCheckbox = input; }}
             type="checkbox"
-            onChange={App.toggleAll.bind(this)}
-            checked={activeTodoCount === 0}
+            onClick={this.handleToggleAll.bind(this)}
+            defaultChecked={this.state.toggleAllCheckbox === 'on'}
           />
           <ul style={styles.todoList}>
             {todoItems}

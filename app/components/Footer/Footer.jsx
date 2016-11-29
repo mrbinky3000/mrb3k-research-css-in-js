@@ -20,7 +20,6 @@ const Footer = (props) => {
   }
 
   const nowShowing = props.nowShowing;
-  console.log('nowShowing', props.nowShowing);
   return (
     <div>
       <div style={styles.footerBefore}>&nbsp;</div>
@@ -45,7 +44,7 @@ const Footer = (props) => {
               key={'anchor2'}
               style={[
                 styles.filtersLiA,
-                (nowShowing === constants.ACTIVE_TODOS) ? styles.filtersLiASelected : null,
+                nowShowing === constants.ACTIVE_TODOS && styles.filtersLiASelected,
               ]}
               href="#/active"
             >Active</a>
