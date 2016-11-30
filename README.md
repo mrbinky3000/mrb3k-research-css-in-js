@@ -1,11 +1,13 @@
 # Researching CSS in JS
 Converted the "React + Alt" branch of  [TODO MVC](http://todomvc.com/examples/react/#/) to use [CSS in JS](https://vimeo.com/116209150) via [Radium](https://formidable.com/open-source/radium/) in order to learn more about the process.
 
-Please note! I didn't mess around too much with TODOMVC's logic or the styles choices.  That is not the purpose of this experiment.  They made a lot of css rules that I would have done differently, and I wouldn't have broken down the components the same way, or passed data around the same way.
+Please note! This is a proof of concept! I didn't mess around too much with TODOMVC's logic or the style choices.  That is not the purpose of this experiment.  They made a lot of css rules that I would have done differently, and I wouldn't have broken down the components the same way, or passed data around the same way.
 
 Please __DO__ look at the files in the app/components directory that end in "Css.js" and how they are included into the JSX of the components.  That's the main take-away here.
 
 You can see it in action here: https://mrbinky3000.github.io/mrb3k-research-css-in-js/#/
+
+I used my Webpack2 + React boilerplate project as the base for this app.  Check it out here: https://github.com/mrbinky3000/mrb3k-react-webpack-boilerplate
 ## Notes
 ### It doesn't add bloat to your HTML.  It also does bloat your HTML. ;-)
 Yes, all the styles are applied inline to your HTML. However, on the client side, there is no bloat. For example, If your page displays 100 rows of data, and each of those rows has styling, your HTML will not grow in KB over the wire.
