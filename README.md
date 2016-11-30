@@ -8,7 +8,9 @@ Please __DO__ look at the files in the app/components directory that end in "Css
 You can see it in action here: https://mrbinky3000.github.io/mrb3k-research-css-in-js/#/
 ## Notes
 ### It doesn't add bloat to your HTML.  It also does bloat your HTML. ;-)
-Yes, all the styles are applied inline to your HTML. However,On the client side, there is no bloat. For example, If your page displays 100 rows of data, and each of those rows has styling, your HTML will not grow in KB over the wire.
+Yes, all the styles are applied inline to your HTML. However, on the client side, there is no bloat. For example, If your page displays 100 rows of data, and each of those rows has styling, your HTML will not grow in KB over the wire.
+
+There may be some issues with performance on pages with thousands of rows, or with lots of DOM elements in general, since altering the DOM is expensive for the browser.  I have a feeling these would be rare cases.  After all, Facebook invented this for their site, and their site has lots of DOM elements.  Heck, their newsfeed has an endless scroll.
 
 For the client, HTML and javascript are downloaded and the css is applied to the elements at runtime.  If you use [Webpack](https://webpack.github.io/) you can create chunks that hold your CSS in JS code to leverage caching.
 
