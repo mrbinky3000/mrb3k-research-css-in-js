@@ -3,22 +3,24 @@ Converted the "React + Alt" branch of  [TODO MVC](http://todomvc.com/examples/re
 
 Please note! This is a proof of concept! I didn't mess around too much with TODOMVC's logic or the style choices.  That is not the purpose of this experiment.  They made a lot of css rules that I would have done differently, and I wouldn't have broken down the components the same way, or passed data around the same way.
 
-Please __DO__ look at the files in the app/components directory that end in "Css.js" and how they are included into the JSX of the components.  That's the main take-away here.
+What you want to examine are the files in the app/components directory that end in "Css.js" and how they are included into the react components.  That's the main take-away here.  All the other files (like 95% of the code) is simply webpack boilerplate.
 
-You can see it in action here: https://mrbinky3000.github.io/mrb3k-research-css-in-js/#/
+You can see the TODO app in glorious action here: https://mrbinky3000.github.io/mrb3k-research-css-in-js/#/
 
-I used my Webpack2 + React boilerplate project as the base for this app.  Check it out here: https://github.com/mrbinky3000/mrb3k-react-webpack-boilerplate
+As I mentioned, I used my Webpack2 + React boilerplate project as the base for this app.  Check it out here: https://github.com/mrbinky3000/mrb3k-react-webpack-boilerplate
 ## Notes
-### It doesn't add bloat to your HTML.  It also does bloat your HTML. ;-)
-Yes, all the styles are applied inline to your HTML. However, on the client side, there is no bloat. For example, If your page displays 100 rows of data, and each of those rows has styling, your HTML will not grow in KB over the wire.
+### CSS in JS doesn't add bloat to your HTML.  Also, it does bloat your HTML. ;-)
+Yes, all the styles are applied inline to your HTML. However, on the client side, there is no bloat. For example, If your page displays 100 rows of data, and each of those rows has styling, your HTML will not grow in KB over the wire.  The CSS is stored in JavaScript and applied to the DOM elements.
 
 There may be some issues with performance on pages with thousands of rows, or with lots of DOM elements in general, since altering the DOM is expensive for the browser.  I have a feeling these would be rare cases.  After all, Facebook invented this for their site, and their site has lots of DOM elements.  Heck, their newsfeed has an endless scroll.
 
 For the client, HTML and javascript are downloaded and the css is applied to the elements at runtime.  If you use [Webpack](https://webpack.github.io/) you can create chunks that hold your CSS in JS code to leverage caching.
 
-*HOWEVER*, if you are doing server-side rendering, I'm assuming that the rendered HTML will indeed have the same styles applied 100 times inline for each row of data.  I need to test this further.
+*HOWEVER*, if you are doing server-side rendering, I'm assuming that the rendered HTML will indeed have the same styles applied 100 times inline for each row of data.  This means it could be very large over the wire initially.  I need to test this further.  Perhaps somehow progamatically skip the inline CSS on the server, and let the client do it.  Will that lead to a flash of unformatted page?  Hmmm...
 
-*TODO* Test to see if server-side rendered files are large.
+*TODO* 
+- Test to see if server-side rendered files are large.
+- Test to see if server-side rendered pages flash.
 ### What about resets and applying styles to element tags?
 Radium contains a `<Style></Style>` tag that work a lot like a regular `<style></style>` tag. You can put whatever raw CSS you want in here. It's useful for fonts and global resets. I am not sure I like this, thought.  I think if you're going to got CSS in JS, then EVERYTHING should be CSS in JS, otherwise you still have the same old problems with implicit inheritance.  Here's an example from the main index.js for our app.  I'll talk more about my reservations after the example.
 
