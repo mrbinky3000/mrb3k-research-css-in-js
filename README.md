@@ -123,13 +123,13 @@ const styles = {
 ```
 In the above example, you you hovered over the paragraph, the color of the paragraph's text will change from black to red.
 
-What about hover states that trigger changes in other elements? Remember, when using CSS in JS, all css inheritance is explicit&ast;&ast; in CSS in JS, not explicit (unless you hack your css with `<Style></Style>`, see previous section)
+What about hover states that trigger changes in other elements? Remember, when using CSS in JS, all css inheritance is explicit&ast;&ast; in CSS in JS, not implicit.
 
 This seem like it might be a stumbling block for folks.  The key is to stop thinking about CSS as CSS and start thinking of it as React code. Once you accept that your CSS is now code, this concept is easy to grasp. React components have a `this.state` property.  Radium has a `Radium.getState` method so that you can query the hover state of an element.
 
 Here is an example of a hover triggering changes in a target element.
 
-&ast;&ast;See notes about using the `<Style />` tag.
+&ast;&ast;(Unless you hack your css with `<Style></Style>`, see previous section about using the `<Style />` tag.)
 ```javascript
 
 // your CSS in JS file...
