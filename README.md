@@ -172,7 +172,7 @@ export default Class Example extends React.component {
 ```
 In the example above, you can tap into the Radium API and use it, along with state, to trigger style changes on elements way off on other branches in the DOM.
 
-Don't forget you can also trigger stuff based on `:active` and `:visited`.  That's cool.  You can conditionally show or hide stuff based on if they've already visited a link durring the current session without using cookies or local storage.  Neat!
+Don't forget you can also trigger stuff based on `:active` and `:visited`.  That's cool.  You can conditionally show or hide stuff based on if they've already visited a link during the current session without using cookies or local storage.  Neat!
 
 You can find more information on the Radium api and the getState method [here](https://github.com/FormidableLabs/radium/tree/master/docs/api#getstate).
 ### :before and :after and other pseudo elements.
