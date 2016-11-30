@@ -119,11 +119,11 @@ const styles = {
 // somewhere in a component
 <p style={styles.myHoverExample}>Hover over me</p>
 ```
-In the above example, you you hovered over the paragraph, the color of the paragraph's text will change from black to red.  
+In the above example, you you hovered over the paragraph, the color of the paragraph's text will change from black to red.
 
-What about hover states that trigger changes in other elements? Remember, when using CSS in JS, all css inheritance is explicit&ast;&ast; in CSS in JS, not explicit (unless you hack your css with <Style />, see previous section)
+What about hover states that trigger changes in other elements? Remember, when using CSS in JS, all css inheritance is explicit&ast;&ast; in CSS in JS, not explicit (unless you hack your css with `<Style></Style>`, see previous section)
 
-This seem like it might be a stumbling block for folks.  The key is to stop thinking about CSS as CSS and start thinking of it as React code. Once you accept that your CSS is now code, this concept is easy to grasp. React components have a `this.state` property.  Radium has a `getState` method so that you can query the hover state of an element.
+This seem like it might be a stumbling block for folks.  The key is to stop thinking about CSS as CSS and start thinking of it as React code. Once you accept that your CSS is now code, this concept is easy to grasp. React components have a `this.state` property.  Radium has a `Radium.getState` method so that you can query the hover state of an element.
 
 Here is an example of a hover triggering changes in a target element.
 
@@ -224,7 +224,7 @@ Convert a DOM element that uses before and after pseudo elements into a componen
 ## Conclusions
 I've seen some really ugly sass mixins trying to emulate javascript.  CSS in JS eliminates that nightmare.  You are actually programming CSS and can leverage everything that the JavaScript language has to offer: modules, classes, IIFE's, loops, everything.  It would be easy to program a grid system.
 
-CSS in JS also eliminates dead CSS.  You'll never have dead CSS since JS minimizers eliminate dead code.  You can use tools like webpack and code chunking to split out the CSS in JS code and cache it long-term.
+CSS in JS also eliminates dead CSS.  You'll never have dead CSS since JS minimizers eliminate dead code.  You can use tools like Webpack and code chunking to split out the CSS in JS code and cache it long-term.
 
 __My gut says "nope for now", but I still might use it__
 
@@ -233,3 +233,4 @@ All-in-all, the lack of support for before, after, first-child and last-child  p
 __Basically, I'd have to make a new library of, what are essentially mixins, to abstract out all these common issues.  Perhaps someone has already made this?  A list of useful CSS in JS utility methods similar in nature to a library like underscore?__
 
 There is good news  a new CSS in JS library called [Aphrodite](https://github.com/Khan/aphrodite) that seems to handle before, after, global fonts, and it works on isomorphic apps (aka apps that render in the client and on the server. aka sever-side rendering).
+
