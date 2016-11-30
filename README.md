@@ -21,6 +21,7 @@ For the client, HTML and javascript are downloaded and the css is applied to the
 *TODO* 
 - Test to see if server-side rendered files are large.
 - Test to see if server-side rendered pages flash.
+
 ### What about resets and applying styles to element tags?
 Radium contains a `<Style></Style>` tag that work a lot like a regular `<style></style>` tag. You can put whatever raw CSS you want in here. It's useful for fonts and global resets. I am not sure I like this, thought.  I think if you're going to got CSS in JS, then EVERYTHING should be CSS in JS, otherwise you still have the same old problems with implicit inheritance.  Here's an example from the main index.js for our app.  I'll talk more about my reservations after the example.
 
